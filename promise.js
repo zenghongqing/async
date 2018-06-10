@@ -12,7 +12,7 @@ class myPromise {
             throw new Error('fn is not a function')
         }
         this.$state = PENDING;          // 记录状态
-        this.$chain = [];               // 链式调用函数的数组
+        this.$chain = [];               // $chained 是当 promise 处在 settled 状态时需要调用的函数数组
         const resolve = (value) => {
             if (this.$state !== PENDING) {
                 return;
@@ -68,6 +68,7 @@ class myPromise {
             } else if (this.$state === REJECTED) {
                 _onRejected(this.$value);
             } else {
+                // 防止在异步的情况下$state的状态依然是pending，保留执行函数到resolve再执行
                 this.$chain.push({onFulfilled: _onFulfilled, onRejected: _onRejected});
             }
         })
