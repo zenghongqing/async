@@ -75,7 +75,7 @@ Generator 函数是 ES6 提供的一种异步编程解决方案，函数会返�
     b.next(13) // { value:42, done:true }
 ```
 以上可以看出，当next参数为空时，yield表达式返回的是undefined，不为空时，yield表达式返回值等于参数值。但是Generator 函数将异步操作表示得很简洁，但是流程管理却不方便。
-*注意点:
+* 注意点:
 1. ES6 规定这个遍历器是 Generator 函数的实例，也继承了 Generator 函数的prototype对象上的方法。
 2. Generator函数不能跟new 命令一起用，会报错，以下是解决办法：
 ```
@@ -91,7 +91,7 @@ Generator 函数是 ES6 提供的一种异步编程解决方案，函数会返�
     f.next();
 ```
 首先，生成一个空对象，使用call方法绑定 Generator 函数内部的this。这样，构造函数调用以后，这个空对象就是 Generator 函数的实例对象了。
-*Thunk函数
+* Thunk函数
 自动化执行Generator函数的一种方法, (注意其中高阶函数的使用)。
 ```
     // es5版本
@@ -159,7 +159,7 @@ Generator 函数是 ES6 提供的一种异步编程解决方案，函数会返�
     // caller done
 ```
 一旦 Generator 执行过程中抛出错误，且没有被内部捕获，就不会再执行下去了。如果此后还调用next方法，将返回一个value属性等于undefined、done属性等于true的对象，即 JavaScript 引擎认为这个 Generator 已经运行结束了。
-*Generator函数的流程管理
+* Generator函数的流程管理
 Thunk函数可用于Generator函数的自动流程管理.如下例：
 ```
     function run(fn) {
@@ -263,7 +263,7 @@ async函数返回一个 Promise 对象，可以使用then方法添加回调函�
     
     asyncPrint('hello world', 50);
 ```
-*注意点:
+* 注意点:
 1. async 表示这是一个 async 函数，而 await 只能在这个函数里面使用。
 2. await 后面紧跟着的最好是一个耗时的操作或者是一个异步操作(当然非耗时的操作也可以的，但是就失去意义了), 也就是正常情况下，await命令后面是一个 Promise 对象。如果不是，会被转成一个立即resolve的 Promise 对象。
 3. 捕获错误 如果await后面的异步操作出错，那么等同于async函数返回的 Promise 对象被reject，所以await可以放到try catch中，又或者async本身就是返回一个Promise，后面也可加上then或catch捕获。
